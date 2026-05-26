@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zona Libre · CEDID Ciudad de Bogotá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1a3c8f;
+      --blue2:   #2653c9;
+      --green:   #0fa86e;
+      --red:     #e23030;
+      --orange:  #f59e0b;
+      --bg:      #f5f7fb;
+      --white:   #ffffff;
+      --text:    #1e2d40;
+      --muted:   #5e7080;
+      --radius:  14px;
+      --shadow:  0 4px 20px rgba(0,0,0,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--blue);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .9rem 0;
+      color: var(--white);
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo .shield { font-size: 1.4rem; }
+    .nav-links {
+      display: flex;
+      gap: .2rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 500;
+      padding: .5rem .75rem;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.15); color: #fff; }
+    .btn-alert-nav {
+      background: var(--red);
+      color: #fff !important;
+      border-radius: 8px;
+      padding: .5rem .9rem !important;
+      font-weight: 600 !important;
+    }
+    .btn-alert-nav:hover { background: #c72020 !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 55%, #3b6fd4 100%);
+      color: #fff;
+      padding: 4rem 1.5rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 60px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 50px;
+      padding: .3rem .9rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: .8rem;
+    }
+    .hero h1 span { color: #ffd166; }
+    .hero p {
+      font-size: 1.05rem;
+      opacity: .88;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+    .hero-btns {
+      display: flex;
+      gap: .9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: .85rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .2s;
+      box-shadow: 0 6px 24px rgba(226,48,48,.45);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(226,48,48,.5); background: #c72020; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,.15);
+      border: 1.5px solid rgba(255,255,255,.5);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: .85rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.25); border-color: #fff; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 3.5rem 1.5rem; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-bottom: .4rem;
+      color: var(--blue);
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-bottom: 2.4rem;
+    }
+    .divider {
+      width: 50px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    /* ─── INFO CARDS ─── */
+    #info { background: var(--bg); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      border-top: 4px solid var(--green);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,.13); }
+    .card-icon { font-size: 2.2rem; margin-bottom: .7rem; }
+    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; color: var(--blue); }
+    .card p { font-size: .88rem; color: var(--muted); }
+    .card.danger { border-top-color: var(--red); }
+    .card.warn  { border-top-color: var(--orange); }
+    .card.safe  { border-top-color: var(--green); }
+
+    /* ─── SEÑALES ─── */
+    #senales { background: #fff; }
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+    .signal-item {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      border-left: 4px solid var(--orange);
+      font-size: .9rem;
+    }
+    .signal-item strong { display: block; margin-bottom: .3rem; color: var(--text); font-size: .95rem; }
+    .signal-item span { color: var(--muted); }
+
+    /* ─── ALERTA FORM ─── */
+    #alerta {
+      background: linear-gradient(160deg, #e8f0fe 0%, #fce8e8 100%);
+    }
+    .alert-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .alert-wrapper { grid-template-columns: 1fr; } }
+    .alert-info h2 { font-size: 1.7rem; font-weight: 800; color: var(--blue); margin-bottom: .5rem; }
+    .alert-info p { color: var(--muted); font-size: .93rem; margin-bottom: 1.2rem; }
+    .privacy-box {
+      background: rgba(15,168,110,.1);
+      border: 1px solid rgba(15,168,110,.3);
+      border-radius: 10px;
+      padding: .9rem 1.1rem;
+      font-size: .85rem;
+      color: #0a6e48;
+      display: flex;
+      gap: .6rem;
+    }
+    .privacy-box span { font-size: 1.2rem; flex-shrink: 0; }
+
+    .form-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 1.8rem;
+      box-shadow: 0 6px 30px rgba(0,0,0,.12);
+    }
+    .form-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1.3rem;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label {
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+    .form-group select,
+    .form-group textarea,
+    .form-group input[type="text"] {
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      font-size: .9rem;
+      padding: .65rem .9rem;
+      border: 1.5px solid #dde3ee;
+      border-radius: 9px;
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color .2s;
+      resize: vertical;
+    }
+    .form-group select:focus,
+    .form-group textarea:focus,
+    .form-group input[type="text"]:focus {
+      outline: none;
+      border-color: var(--blue2);
+    }
+    .btn-send {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: .9rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      transition: background .2s, transform .15s;
+    }
+    .btn-send:hover { background: #c72020; transform: translateY(-1px); }
+    .form-note {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .8rem;
+    }
+
+    /* Success state */
+    #success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    #success-msg .check { font-size: 3.5rem; margin-bottom: .8rem; }
+    #success-msg h3 { font-size: 1.3rem; font-weight: 700; color: var(--green); margin-bottom: .5rem; }
+    #success-msg p { color: var(--muted); font-size: .9rem; }
+
+    /* ─── CONTACTOS ─── */
+    #contactos { background: var(--bg); }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.3rem 1.4rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .contact-card .icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: .3rem;
+    }
+    .bg-red    { background: #fde8e8; }
+    .bg-blue   { background: #e8effe; }
+    .bg-green  { background: #e6f7f1; }
+    .bg-orange { background: #fef3e2; }
+    .contact-card h4 { font-size: .97rem; font-weight: 700; color: var(--text); }
+    .contact-card .number {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--blue);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+    .contact-card .number:hover { color: var(--blue2); }
+    .contact-card .desc { font-size: .8rem; color: var(--muted); }
+
+    /* ─── TIPS ─── */
+    #tips { background: #fff; }
+    .tips-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .tip-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.3rem;
+    }
+    .tip-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tip-item p { font-size: .88rem; color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--blue);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: .82rem;
+    }
+    footer strong { color: #fff; }
+    footer a { color: #a8c4f9; text-decoration: none; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 6px 24px rgba(226,48,48,.45); }
+      50%       { box-shadow: 0 6px 38px rgba(226,48,48,.75); }
+    }
+    .btn-primary.pulse { animation: pulse-red 2s infinite; }
+
+    /* ─── MOBILE NAV ─── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px; left: 0; right: 0;
+        background: var(--blue);
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,.2);
+      }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: .5rem;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+      }
+    }
+    @media (min-width: 601px) {
+      .hamburger { display: none; }
+    }
+
+    /* smooth anchor offset */
+    [id] { scroll-margin-top: 64px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════  NAV  ═══════════════ -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span class="shield">🛡️</span>
+    <span>Zona Libre · CEDID</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#info">Información</a>
+    <a href="#senales">Señales</a>
+    <a href="#tips">Consejos</a>
+    <a href="#contactos">Contactos</a>
+    <a href="#alerta" class="btn-alert-nav">🚨 Reportar</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════  HERO  ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-badge">🏫 CEDID Ciudad de Bogotá · Tunjuelito</div>
+    <h1>Di <span>NO</span> a las drogas.<br>Tu voz importa.</h1>
+    <p>Información para prevenir el consumo de sustancias psicoactivas y un canal seguro y anónimo para reportar situaciones dentro de tu colegio.</p>
+    <div class="hero-btns">
+      <a href="#alerta" class="btn-primary pulse">🚨 Hacer alerta anónima</a>
+      <a href="#info" class="btn-secondary">📚 Informarme</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  INFORMACIÓN PREVENTIVA  ═══════════════ -->
+<section id="info">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="section-title">¿Qué debes saber?</h2>
+    <p class="section-sub">Conocer los riesgos es el primer paso para protegerte y proteger a los demás.</p>
+    <div class="cards-grid">
+      <div class="card danger">
+        <div class="card-icon">🌿</div>
+        <h3>Marihuana (Cannabis)</h3>
+        <p>Afecta la memoria, la concentración y el aprendizaje. El consumo frecuente en jóvenes puede alterar el desarrollo cerebral y generar dependencia psicológica.</p>
+      </div>
+      <div class="card danger">
+        <div class="card-icon">🤍</div>
+        <h3>Cocaína y Bazuco</h3>
+        <p>Altamente adictivas. Provocan daño cardíaco, problemas respiratorios graves y deterioro cognitivo. El bazuco es especialmente destructivo en poco tiempo.</p>
+      </div>
+      <div class="card danger">
+        <div class="card-icon">💊</div>
+        <h3>Pastillas / Popper</h3>
+        <p>Las pastillas sin prescripción médica y los poppers pueden causar arritmias, desmayos o muerte súbita. Son frecuentemente adulteradas con sustancias desconocidas.</p>
+      </div>
+      <div class="card warn">
+        <div class="card-icon">🍺</div>
+        <h3>Alcohol</h3>
+        <p>Es la droga más normalizada, pero es igualmente dañina. En menores de edad daña el hígado, el cerebro en desarrollo y aumenta el riesgo de accidentes y violencia.</p>
+      </div>
+      <div class="card warn">
+        <div class="card-icon">🚬</div>
+        <h3>Tabaco y cigarrillo electrónico</h3>
+        <p>La nicotina crea dependencia rápidamente. Los "vapes" contienen metales pesados y sustancias químicas dañinas que afectan los pulmones incluso desde el primer uso.</p>
+      </div>
+      <div class="card safe">
+        <div class="card-icon">🧠</div>
+        <h3>¿Por qué los jóvenes son más vulnerables?</h3>
+        <p>El cerebro se desarrolla hasta los 25 años. Las sustancias psicoactivas interfieren en ese proceso generando consecuencias irreversibles en el rendimiento escolar y la salud mental.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  SEÑALES DE ALERTA  ═══════════════ -->
+<section id="senales">
+  <div class="container">
+    <div class="divider" style="background:var(--orange)"></div>
+    <h2 class="section-title">Señales de alerta en tus compañeros</h2>
+    <p class="section-sub">Si notas estos cambios repentinos en alguien, puede necesitar ayuda. Actúa con empatía y discreción.</p>
+    <div class="signal-grid">
+      <div class="signal-item">
+        <strong>😴 Somnolencia o hiperactividad inusual</strong>
+        <span>Cambios bruscos de energía sin causa aparente durante clases o recreos.</span>
+      </div>
+      <div class="signal-item">
+        <strong>📉 Bajo rendimiento escolar repentino</strong>
+        <span>Caída en las notas, faltas frecuentes o desinterés en actividades que antes disfrutaba.</span>
+      </div>
+      <div class="signal-item">
+        <strong>👀 Ojos enrojecidos o pupilas alteradas</strong>
+        <span>Pupilas muy dilatadas o muy contraídas pueden indicar consumo reciente.</span>
+      </div>
+      <div class="signal-item">
+        <strong>🤐 Aislamiento y cambio de amigos</strong>
+        <span>Se aleja de su grupo habitual y se relaciona con personas desconocidas fuera del colegio.</span>
+      </div>
+      <div class="signal-item">
+        <strong>💸 Pide dinero con frecuencia</strong>
+        <span>Solicita dinero prestado sin una razón clara o desaparecen objetos personales.</span>
+      </div>
+      <div class="signal-item">
+        <strong>😤 Cambios de humor extremos</strong>
+        <span>Irritabilidad, agresividad o euforia sin motivo aparente; episodios de llanto o angustia.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  CONSEJOS  ═══════════════ -->
+<section id="tips">
+  <div class="container">
+    <div class="divider" style="background:var(--blue2)"></div>
+    <h2 class="section-title">Cómo decir NO</h2>
+    <p class="section-sub">Estrategias prácticas para protegerte cuando te ofrezcan sustancias.</p>
+    <div class="tips-list">
+      <div class="tip-item">
+        <div class="tip-num">1</div>
+        <p><strong>Di "No, gracias"</strong> con firmeza y sin dar explicaciones. No le debes justificaciones a nadie.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">2</div>
+        <p><strong>Aléjate del lugar.</strong> Si te sientes presionado, busca una excusa para retirarte.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">3</div>
+        <p><strong>Busca a un adulto de confianza:</strong> un docente, orientador o familiar al que puedas contarle la situación.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">4</div>
+        <p><strong>Usa esta herramienta</strong> para reportar de forma anónima si ves que se venden o distribuyen sustancias cerca del colegio.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">5</div>
+        <p><strong>Apoya a tus compañeros.</strong> Si alguien te cuenta que consume, no lo juzgues: ayúdalo a buscar orientación profesional.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">6</div>
+        <p><strong>Cuida tus redes sociales.</strong> Desconfía de quienes ofrecen sustancias por redes sociales o mensajes privados a estudiantes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  FORMULARIO DE ALERTA ANÓNIMA  ═══════════════ -->
+<section id="alerta">
+  <div class="container">
+    <div class="alert-wrapper">
+      <!-- Left side -->
+      <div class="alert-info">
+        <div class="divider" style="background:var(--red)"></div>
+        <h2>Alerta Anónima 🚨</h2>
+        <p>Si presenciaste o tienes conocimiento de una situación de venta, distribución o consumo de sustancias dentro o cerca del colegio, repórtala aquí. <strong>Nadie sabrá quién envió el reporte.</strong></p>
+        <div class="privacy-box">
+          <span>🔒</span>
+          <div>
+            <strong>Tu privacidad está protegida.</strong><br>
+            Este formulario <strong>no solicita</strong> tu nombre, número de documento ni ningún dato personal. El reporte llega directamente a las autoridades de la institución.
+          </div>
+        </div>
+        <br>
+        <p style="font-size:.85rem;color:var(--muted)">⚠️ Si hay una emergencia inmediata o alguien está en peligro, llama al <strong>112</strong> o acude de inmediato a la coordinación del colegio.</p>
+      </div>
+
+      <!-- Right side: form -->
+      <div class="form-card">
+        <div id="form-area">
+          <h3>📋 Enviar reporte</h3>
+          <form id="alertForm" onsubmit="submitAlert(event)">
+            <div class="form-group">
+              <label for="tipo">Tipo de situación *</label>
+              <select id="tipo" required>
+                <option value="" disabled selected>Selecciona una opción...</option>
+                <option value="consumo">Consumo dentro del colegio</option>
+                <option value="venta">Venta o distribución dentro del colegio</option>
+                <option value="venta-ext">Venta o distribución cerca de la entrada</option>
+                <option value="presion">Estudiante siendo presionado para consumir</option>
+                <option value="otro">Otra situación relacionada</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="lugar">Lugar aproximado *</label>
+              <select id="lugar" required>
+                <option value="" disabled selected>¿Dónde ocurrió?</option>
+                <option>Baños del colegio</option>
+                <option>Zona de descanso / patio</option>
+                <option>Salón de clases</option>
+                <option>Entrada principal / portería</option>
+                <option>Afueras del colegio</option>
+                <option>Pasillos o escaleras</option>
+                <option>Sala de sistemas</option>
+                <option>Otro lugar</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="momento">¿Cuándo ocurrió?</label>
+              <select id="momento">
+                <option value="" disabled selected>Aproximadamente...</option>
+                <option>Hoy (esta mañana)</option>
+                <option>Hoy (esta tarde)</option>
+                <option>Ayer</option>
+                <option>Esta semana</option>
+                <option>Hace varias semanas</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="descripcion">Descripción breve *</label>
+              <textarea id="descripcion" rows="4" placeholder="Describe lo que viste o escuchaste. No menciones tu nombre ni el de otras personas si no quieres. Sé lo más específico posible sobre la situación." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="adicional">Información adicional (opcional)</label>
+              <input type="text" id="adicional" placeholder="¿Algún detalle más que quieras agregar?" />
+            </div>
+
+            <button type="submit" class="btn-send">
+              🚨 Enviar alerta de forma anónima
+            </button>
+            <p class="form-note">🔒 No se recopila ningún dato personal. Tu identidad es completamente anónima.</p>
+          </form>
+        </div>
+
+        <div id="success-msg">
+          <div class="check">✅</div>
+          <h3>¡Alerta enviada exitosamente!</h3>
+          <p>Tu reporte ha sido recibido de forma <strong>completamente anónima</strong>. Las autoridades de la institución tomarán las acciones correspondientes. Gracias por contribuir a un colegio más seguro.</p>
+          <br>
+          <button class="btn-send" onclick="resetForm()" style="max-width:220px;margin:0 auto">
+            Enviar otro reporte
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  CONTACTOS DE EMERGENCIA  ═══════════════ -->
+<section id="contactos">
+  <div class="container">
+    <div class="divider" style="background:var(--blue)"></div>
+    <h2 class="section-title">Contactos de emergencia y apoyo</h2>
+    <p class="section-sub">Si necesitas ayuda urgente o quieres hablar con alguien, estas líneas están disponibles para ti.</p>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <div class="icon-wrap bg-red">🚨</div>
+        <h4>Emergencias</h4>
+        <a href="tel:112" class="number">112</a>
+        <span class="desc">Policía Nacional · disponible 24/7</span>
+      </div>
+      <div class="contact-card">
+        <div class="icon-wrap bg-blue">💬</div>
+        <h4>Línea Bienestar Bogotá</h4>
+        <a href="tel:106" class="number">106</a>
+        <span class="desc">Apoyo psicosocial y crisis emocional · gratuita</span>
+      </div>
+      <div class="contact-card">
+        <div class="icon-wrap bg-green">🏥</div>
+        <h4>Salud Mental SDS</h4>
+        <a href="tel:3078615270" class="number">307 861 5270</a>
+        <span class="desc">Secretaría Distrital de Salud · orientación y tratamiento</span>
+      </div>
+      <div class="contact-card">
+        <div class="icon-wrap bg-orange">🏫</div>
+        <h4>Orientadora del Colegio</h4>
+        <a href="#" class="number" style="font-size:1rem">Diana Martínez</a>
+        <span class="desc">Sala de orientación · jornada mañana y tarde</span>
+      </div>
+      <div class="contact-card">
+        <div class="icon-wrap bg-blue">👮</div>
+        <h4>Policía Comunitaria</h4>
+        <a href="tel:3107650076" class="number">310 765 0076</a>
+        <span class="desc">Estación Tunjuelito · reportes y prevención</span>
+      </div>
+      <div class="contact-card">
+        <div class="icon-wrap bg-green">📞</div>
+        <h4>Línea Anti-Drogas</h4>
+        <a href="tel:018000911012" class="number">018000 911012</a>
+        <span class="desc">Gobierno Nacional · asesoría gratuita y confidencial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════  FOOTER  ═══════════════ -->
+<footer>
+  <p><strong>Zona Libre · CEDID Ciudad de Bogotá</strong></p>
+  <p style="margin-top:.4rem">Acción Solidaria — Prestación del Servicio Social Unadista (700004) · Jonatan Romero Velosa</p>
+  <p style="margin-top:.4rem">
+    Alineado con <strong>ODS 3</strong> Salud y Bienestar &amp;
+    <strong>ODS 4</strong> Educación de Calidad ·
+    <a href="https://www.unad.edu.co" target="_blank" rel="noopener">UNAD</a>
+  </p>
+</footer>
+
+<!-- ═══════════════  JS  ═══════════════ -->
+<script>
+  function toggleNav() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
+  }
+
+  function submitAlert(e) {
+    e.preventDefault();
+
+    const tipo = document.getElementById('tipo').value;
+    const lugar = document.getElementById('lugar').value;
+    const desc = document.getElementById('descripcion').value.trim();
+
+    if (!tipo || !lugar || !desc) return;
+
+    // Simulate sending (in a real deployment, here you'd call an API endpoint)
+    const formArea = document.getElementById('form-area');
+    const successMsg = document.getElementById('success-msg');
+    formArea.style.display = 'none';
+    successMsg.style.display = 'block';
+
+    // Scroll to form card
+    document.getElementById('alerta').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    document.getElementById('alertForm').reset();
+    document.getElementById('form-area').style.display = 'block';
+    document.getElementById('success-msg').style.display = 'none';
+  }
+
+  // Close nav on link click (mobile)
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
